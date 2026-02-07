@@ -1,19 +1,19 @@
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import Updater, CommandHandler
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Bot ishlayapti 🚀")
+TOKEN = os.environ.get("BOT_TOKEN")
+
+def start(update, context):
+    update.message.reply_text("Bot ishlayapti 🚀")
 
 def main():
-    token = os.environ.get("BOT_TOKEN")
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
 
-    if not token:
-        raise ValueError("BOT_TOKEN topilmadi Railway Variables ichida.")
+    dp.add_handler(CommandHandler("start", start))
 
-    app = ApplicationBuilder().token(token).build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     main()
