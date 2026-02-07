@@ -2,13 +2,14 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
+# Railway environment variable
 TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🚀 CoinMasterX ishga tushdi!")
+    await update.message.reply_text("Bot ishlayapti 🚀")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Bu crypto signal bot. Tez orada signal keladi.")
+    await update.message.reply_text("Yordam buyrug'i ishlayapti ✅")
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
@@ -17,6 +18,7 @@ def main():
     app.add_handler(CommandHandler("help", help_command))
 
     print("Bot ishga tushdi...")
+
     app.run_polling()
 
 if __name__ == "__main__":
